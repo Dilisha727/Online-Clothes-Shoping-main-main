@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProductCard: View {
     @EnvironmentObject var cartManager: CartManager
+    @State private var showingDetail = false
     var product: Product
     
     var body: some View {
@@ -35,7 +36,9 @@ struct ProductCard: View {
             .frame(width: 180, height: 250)
             .shadow(radius: 3)
             
-            Button {
+            //add to cart
+            
+            /*Button {
                 cartManager.addToCart(product: product)
             } label: {
                 Image(systemName: "plus")
@@ -44,6 +47,20 @@ struct ProductCard: View {
                     .background(.black)
                     .cornerRadius(50)
                     .padding()
+            }*/
+            //privew details view
+            Button {
+                showingDetail = true // Set the state to true when tapped
+            } label: {
+                Image(systemName: "plus")
+                    .padding(10)
+                    .foregroundColor(.white)
+                    .background(.black)
+                    .cornerRadius(50)
+                    .padding()
+            }
+            .sheet(isPresented: $showingDetail) {
+                ProductDetailView(product: product) // Show the details view
             }
         }
     }
